@@ -1,0 +1,67 @@
+.chooseskilldialog,
+.chooseskilldialog * {
+  box-sizing: border-box;
+}
+
+.chooseskilldialog {
+  background: #181818;
+  border-radius: 20.51px;
+  padding: 20.51px 20.51px 20.51px 20.51px;
+  display: flex;
+  flex-direction: column;
+  gap: 17.77px;
+  align-items: center;
+  justify-content: center;
+  width: 360.02px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.skill-name-input-container {
+  background: #1b1b1b;
+  border-radius: 10.94px;
+  border: solid #242424;
+  border-width: 1.09px;
+  padding: 20px 40px 20px 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 13.67px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  color: #898989;
+  text-align: left;
+  font: 500 18px "Space Grotesk";
+  position: relative;
+}
+
+.skill-name-input-container:focus {
+  color: white;
+}
+
+.done-buttom {
+  background: #703eff;
+  border-radius: 11.02px;
+  padding: 13.23px 13.23px 13.23px 13.23px;
+  display: flex;
+  flex-direction: row;
+  gap: 7.35px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  cursor: pointer;
+}
+
+.done-buttom-text {
+  color: #ffffff;
+  text-align: left;
+  font: 500 14px "Space Grotesk";
+  position: relative;
+}
