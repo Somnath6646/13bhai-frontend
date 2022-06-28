@@ -1,4 +1,4 @@
-import "../css/CourseItem.css";
+import "../../css/courses/CourseItem.css";
 
 export const CourseItem = ({ ...props }) => {
   return (

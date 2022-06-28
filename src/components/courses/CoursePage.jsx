@@ -1,13 +1,13 @@
-import { useLocation } from "react-router-dom";
-import "../css/JobsPage.css";
-import { withCookies, Cookies, useCookies } from "react-cookie";
-import axios from "../axios";
-import requests from "../requests";
 import { useEffect, useState } from "react";
-import { ChooseSkillDialog } from "./ChooseSkillDialog";
-import { JobItem } from "./JobItem";
-import { CourseItem } from "./CourseItem";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import axios from "../../axios";
+import "../../css/BaseScreen.css";
+import requests from "../../requests";
+import { ChooseSkillDialog } from "../dialogs/ChooseSkillDialog";
+import { LoaderDialog } from "../dialogs/LoaderDialog";
+import { CourseItem } from "./CourseItem";
+import BottomBar from "../navigation/Bottombar";
 
 export const CoursePage = () => {
   var data;
@@ -18,6 +18,7 @@ export const CoursePage = () => {
   const [allCourseList, setAllCourseList] = useState([]);
   const [selectedPlatform, setSelectedPlatform] = useState(0);
   const [isChooseSkillDialogOpen, setIsChooseSkillDialogOpen] = useState(false);
+  const [isLoadingDialogOpen, setLoadingDialogOpen] = useState(true);
 
   console.log("Cookie Skill :" + cookies.skill);
   if (!data) {
@@ -28,10 +29,12 @@ export const CoursePage = () => {
   }
   useEffect(() => {
     function getData(skill) {
+      setLoadingDialogOpen(true);
       axios
         .get(`${requests.courses}/?q=${skill}`)
         .then((sync) => sync.data)
         .then((data) => {
+          setLoadingDialogOpen(false);
           setAllCourseList(data);
           console.log("RESPONSE", data);
         });
@@ -43,7 +46,7 @@ export const CoursePage = () => {
     return (
       <div
         className={
-          selectedPlatform == index
+          selectedPlatform === index
             ? "platforms-tab-selected"
             : "platforms-tab-unselected"
         }
@@ -54,7 +57,7 @@ export const CoursePage = () => {
       >
         <div
           className={
-            selectedPlatform == index
+            selectedPlatform === index
               ? "platforms-tab-text-selected"
               : "platforms-tab-text-unselected"
           }
@@ -95,12 +98,18 @@ export const CoursePage = () => {
   }
 
   return (
-    <div className="jobs">
+    <div className="base-screen">
       <ChooseSkillDialog
         isChooseSkillDialogOpen={isChooseSkillDialogOpen}
         setSkill={setSkill}
         setIsChooseSkillDialogOpen={setIsChooseSkillDialogOpen}
       />
+      <LoaderDialog
+        aim={data.aim.toLowerCase()}
+        isLoadingDialogOpen={isLoadingDialogOpen}
+        setIsLoadingDialogOpen={setLoadingDialogOpen}
+      />
+      <BottomBar select={0} />
       <div className="main-section-header">
         <div className="title-and--dropdown-section">
           <div className="aim-title-text">{data.aim} for</div>

@@ -1,46 +1,50 @@
-import { useLocation } from "react-router-dom";
-import "../css/JobsPage.css";
-import { withCookies, Cookies, useCookies } from "react-cookie";
-import axios from "../axios";
-import requests from "../requests";
 import { useEffect, useState } from "react";
-import { ChooseSkillDialog } from "./ChooseSkillDialog";
-import { HackathonItem } from "./HackathonItem";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import axios from "../../axios";
+import "../../css/BaseScreen.css";
+import requests from "../../requests";
+import { ChooseSkillDialog } from "../dialogs/ChooseSkillDialog";
+import { LoaderDialog } from "../dialogs/LoaderDialog";
+import BottomBar from "../navigation/Bottombar";
+import { JobItem } from "./JobItem";
 
-export const HackathonsPage = () => {
+export const JobsPage = () => {
   var data;
   const navigate = useNavigate();
   const [cookies, setCookies] = useCookies(["skill"]);
-  const [allHackathonList, setallHackathonList] = useState([]);
+  const [allJobsList, setAllJobsList] = useState([]);
   const [selectedPlatform, setSelectedPlatform] = useState(0);
   const [isChooseSkillDialogOpen, setIsChooseSkillDialogOpen] = useState(false);
+  const [isLoadingDialogOpen, setLoadingDialogOpen] = useState(true);
 
   console.log("Cookie Skill :" + cookies.skill);
   if (!data) {
     data = {
-      aim: "Hackathons",
+      aim: "Freelance Jobs",
       skill: cookies.skill,
     };
   }
   useEffect(() => {
     function getData(skill) {
+      setLoadingDialogOpen(true);
       axios
-        .get(`${requests.hackathons}/?q=${skill}`)
+        .get(`${requests.jobs}/?q=${skill}`)
         .then((sync) => sync.data)
         .then((data) => {
-          setallHackathonList(data);
+          setLoadingDialogOpen(false);
+          setAllJobsList(data);
           console.log("RESPONSE", data);
         });
     }
     getData(data.skill);
   }, [data.skill]);
 
-  const platformTabs = allHackathonList.map((hackathons, index) => {
+  const platformTabs = allJobsList.map((jobs, index) => {
     return (
       <div
         className={
-          selectedPlatform == index
+          selectedPlatform === index
             ? "platforms-tab-selected"
             : "platforms-tab-unselected"
         }
@@ -51,34 +55,36 @@ export const HackathonsPage = () => {
       >
         <div
           className={
-            selectedPlatform == index
+            selectedPlatform === index
               ? "platforms-tab-text-selected"
               : "platforms-tab-text-unselected"
           }
         >
-          {hackathons.platformName}
+          {jobs.platformName}
         </div>
       </div>
     );
   });
-  var hackathons = allHackathonList[selectedPlatform];
+  var jobs = allJobsList[selectedPlatform];
 
-  const hackathonItems = hackathons
-    ? hackathons.hackathonList.map((hackathon, index) => {
+  const jobItems = jobs
+    ? jobs.jobList.map((job, index) => {
         return (
-          <HackathonItem
-            title={hackathon.title}
-            description={hackathon.description}
-            url={hackathon.url}
+          <JobItem
+            title={job.title}
+            description={job.description}
+            url={job.url}
+            budget={job.budget}
           />
         );
       })
-    : [].map((hackathon, index) => {
+    : [].map((job, index) => {
         return (
-          <HackathonItem
-            title={hackathon.title}
-            description={hackathon.description}
-            url={hackathon.url}
+          <JobItem
+            title={job.title}
+            description={job.description}
+            url={job.url}
+            budget={job.budget}
           />
         );
       });
@@ -88,12 +94,18 @@ export const HackathonsPage = () => {
   }
 
   return (
-    <div className="jobs">
+    <div className="base-screen">
       <ChooseSkillDialog
         isChooseSkillDialogOpen={isChooseSkillDialogOpen}
         setSkill={setSkill}
         setIsChooseSkillDialogOpen={setIsChooseSkillDialogOpen}
       />
+      <LoaderDialog
+        aim={data.aim.toLowerCase()}
+        isLoadingDialogOpen={isLoadingDialogOpen}
+        setIsLoadingDialogOpen={setLoadingDialogOpen}
+      />
+      <BottomBar select={1} />
       <div className="main-section-header">
         <div className="title-and--dropdown-section">
           <div className="aim-title-text">{data.aim} for</div>
@@ -127,7 +139,7 @@ export const HackathonsPage = () => {
         </div>
 
         <div className="platforms-tab-list"> {platformTabs}</div>
-        <div className="jobList">{hackathonItems}</div>
+        <div className="jobList">{jobItems}</div>
       </div>
       <div className="sidebar">
         <div className="logo">13bhai</div>
@@ -156,13 +168,13 @@ export const HackathonsPage = () => {
             <div className="tab-unselected-text">Courses</div>
           </div>
           <div
-            className="tab-unselected"
+            className="tab-selected"
             onClick={() => {
               navigate("/jobs");
             }}
           >
             <svg
-              className="tab-unselected-icon"
+              className="tab-selected-icon"
               width="25"
               height="24"
               viewBox="0 0 25 24"
@@ -173,23 +185,23 @@ export const HackathonsPage = () => {
                 fill-rule="evenodd"
                 clip-rule="evenodd"
                 d="M14.75 2.5C14.75 2.36193 14.6381 2.25 14.5 2.25H7.5C5.98122 2.25 4.75 3.48122 4.75 5V19C4.75 20.5188 5.98122 21.75 7.5 21.75H17.5C19.0188 21.75 20.25 20.5188 20.25 19V9.14706C20.25 9.00899 20.1381 8.89706 20 8.89706H15.5C15.0858 8.89706 14.75 8.56127 14.75 8.14706V2.5ZM15.5 12.25C15.9142 12.25 16.25 12.5858 16.25 13C16.25 13.4142 15.9142 13.75 15.5 13.75H9.5C9.08579 13.75 8.75 13.4142 8.75 13C8.75 12.5858 9.08579 12.25 9.5 12.25H15.5ZM15.5 16.25C15.9142 16.25 16.25 16.5858 16.25 17C16.25 17.4142 15.9142 17.75 15.5 17.75H9.5C9.08579 17.75 8.75 17.4142 8.75 17C8.75 16.5858 9.08579 16.25 9.5 16.25H15.5Z"
-                fill="white"
+                fill="#9A76FF"
               />
               <path
                 d="M16.25 2.82414C16.25 2.63964 16.4426 2.5225 16.5862 2.63839C16.7071 2.736 16.8158 2.85036 16.9085 2.97955L19.9217 7.17745C19.9903 7.27302 19.916 7.39706 19.7983 7.39706H16.5C16.3619 7.39706 16.25 7.28513 16.25 7.14706V2.82414Z"
-                fill="white"
+                fill="#9A76FF"
               />
             </svg>
-            <div className="tab-unselected-text">Job Posts</div>
+            <div className="tab-selected-text">Job Posts</div>
           </div>
           <div
-            className="tab-selected"
+            className="tab-unselected"
             onClick={() => {
               navigate("/hackathons");
             }}
           >
             <svg
-              className="tab-selected-icon"
+              className="tab-unselected-icon"
               width="24"
               height="25"
               viewBox="0 0 24 25"
@@ -198,11 +210,11 @@ export const HackathonsPage = () => {
             >
               <path
                 d="M14.6041 3.03532C13.0635 2.85997 11.508 2.85997 9.9674 3.03532L8.37207 3.21691C8.13609 3.24376 7.95157 3.43292 7.93058 3.6695L7.80795 5.05128C7.60178 7.3745 7.60178 9.71143 7.80795 12.0347L7.93058 13.4164C7.95347 13.6744 8.16961 13.8722 8.42862 13.8722H10.5V21.2747C10.5 21.4871 10.6343 21.6763 10.8347 21.7466C11.0352 21.8168 11.2582 21.7527 11.3907 21.5867L11.7814 21.0975C14.1108 18.1811 15.9657 14.9155 17.2777 11.4211L17.4681 10.9138C17.5258 10.7603 17.5045 10.5882 17.4111 10.4534C17.3177 10.3185 17.1641 10.2381 17 10.2381H14.287L16.6124 3.88558C16.6651 3.7416 16.6489 3.58141 16.5683 3.45096C16.4877 3.32052 16.3518 3.23424 16.1995 3.21691L14.6041 3.03532Z"
-                fill="#9A76FF"
+                fill="#CCCCCC"
               />
             </svg>
 
-            <div className="tab-selected-text">Hackathons</div>
+            <div className="tab-unselected-text">Hackathons</div>
           </div>
         </div>
       </div>

@@ -18,27 +18,12 @@
   border-color: #121212;
 }
 
-@media (min-width: 1024px) {
-  .courseitem {
-    padding-left: 25px;
-    border-width: 0px 0px 1px 0px;
-  }
-  .coursedata {
-    width: 50vw;
-  }
-
-  .course-image {
-    width: 200px;
-    height: 180px;
-  }
-}
-
 .course-image {
   border-radius: 10px;
   align-self: stretch;
   flex-shrink: 0;
-  width: 119px;
-  height: 87.53px;
+  width: 27.804vw;
+  height: 9.452vh;
   position: relative;
 }
 
@@ -91,6 +76,28 @@
   font: 400 3.629vw/4.907vw "Space Grotesk";
   text-decoration: underline;
   position: relative;
+}
+
+@media (min-width: 1024px) {
+  .courseitem {
+    padding-left: 1.83vw;
+    border-width: 0px 0px 1px 0px;
+  }
+  .coursedata {
+    width: 50vw;
+  }
+
+  .course-image {
+    width: 11.654vw;
+    height: 15.052vw;
+  }
+}
+
+@media (min-width: 480px) {
+  .course-image {
+    width: 179px;
+    height: 115px;
+  }
 }
 
 @media (min-width: 580px) {

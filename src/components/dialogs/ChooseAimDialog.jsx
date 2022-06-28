@@ -1,6 +1,6 @@
-import React, { Component, useEffect, useState } from "react";
-import "../css/BaseDialog.css";
-import "../css/ChooseAimDialog.css";
+import React from "react";
+import "../../css/dialogs/BaseDialog.css";
+import "../../css/dialogs/ChooseAimDialog.css";
 
 export const ChooseAim = ({
   isChooseAimDialogOpen,

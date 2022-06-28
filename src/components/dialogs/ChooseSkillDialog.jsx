@@ -1,7 +1,7 @@
-import React, { Component, useEffect, useState } from "react";
-import "../css/BaseDialog.css";
-import "../css/ChooseSkillDialog.css";
-import { withCookies, Cookies, useCookies } from "react-cookie";
+import React from "react";
+import { useCookies } from "react-cookie";
+import "../../css/dialogs/BaseDialog.css";
+import "../../css/dialogs/ChooseSkillDialog.css";
 
 export const ChooseSkillDialog = ({
   isChooseSkillDialogOpen,

@@ -1,4 +1,4 @@
-.jobList {
+.hackathonList {
   display: flex;
   flex-direction: column;
   gap: 30.45px;
@@ -9,12 +9,12 @@
   position: relative;
 }
 
-.job-item,
-.job-item * {
+.hackathon-item,
+.hackathon-item * {
   box-sizing: border-box;
 }
 
-.job-item {
+.hackathon-item {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -29,7 +29,7 @@
   border-color: #121212;
 }
 
-.job-title-and-description-container {
+.hackathon-title-and-description-container {
   display: flex;
   flex-direction: column;
   gap: 11.43px;
@@ -40,48 +40,65 @@
   position: relative;
 }
 
-@media (min-width: 1024px) {
-  .job-item {
-    padding-left: 25px;
-    border-width: 0px 0px 1px 0px;
-  }
-  .job-title-and-description-container {
-    width: 50vw;
-  }
-}
-
-.job-title-text {
+.hackathon-title-text {
   color: #ffffff;
   text-align: left;
-  font: 600 22.51px "Space Grotesk";
+  font: 600 5.259vw "Space Grotesk";
   position: relative;
   width: 100%;
 }
 
-.job-description-text {
+.hackathon-description-text {
   color: #767676;
   text-align: left;
-  font: 400 16.55px/24.14px "Space Grotesk";
+  font: 400 3.867vw/5.631vw "Space Grotesk";
   position: relative;
   width: 100%;
   align-self: stretch;
 }
 
-.job-description-text a {
+.hackathon-description-text a {
   color: white;
 }
 
 .budget-text {
   color: #ffffff;
   text-align: left;
-  font: 400 16.55px/24.14px "Space Grotesk";
+  font: 400 3.867vw/5.631vw "Space Grotesk";
   position: relative;
 }
 
-.url-text {
+.hackathon-url-text {
   color: #ffffff;
   text-align: left;
-  font: 400 19.19px/27.99px "Space Grotesk";
+  font: 400 3.843vw/5.607vw "Space Grotesk";
   text-decoration: underline;
   position: relative;
+}
+
+@media (min-width: 1024px) {
+  .hackathon-item {
+    padding-left: 1.83vw;
+    border-width: 0px 0px 1px 0px;
+  }
+  .hackathon-title-and-description-container {
+    width: 50vw;
+  }
+}
+
+@media (min-width: 480px) {
+  .hackathon-title-text {
+    font: 600 22.51px "Space Grotesk";
+  }
+
+  .hackathon-description-text {
+    font: 400 16.55px/24.14px "Space Grotesk";
+  }
+  .hackathon-url-text {
+    font: 400 19.19px/27.99px "Space Grotesk";
+  }
+
+  .budget-text {
+    font: 400 16.55px/24.14px "Space Grotesk";
+  }
 }
