@@ -1,20 +1,16 @@
-import React, { Component, useEffect, useState } from "react";
-import { withCookies, Cookies, useCookies, removeCookie } from "react-cookie";
-import { useNavigate } from "react-router-dom";
-import ReactLoading from "react-loading";
+import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
-
-import "../css/LandingPage.css";
-
-import axios from "../axios";
-import requests from "../requests";
-import { ChooseAim } from "./ChooseAimDialog";
-import { ChooseSkillDialog } from "./ChooseSkillDialog";
+import "../../css/landing/LandingPage.css";
+import { ChooseAim } from "../dialogs/ChooseAimDialog";
+import { ChooseSkillDialog } from "../dialogs/ChooseSkillDialog";
+import { useNavigate } from "react-router-dom";
 
 export const LandingPage = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["skill"]);
+  const navigate = useNavigate();
 
-  const [Aim, setAim] = useState("Hackathons");
+  const [Aim, setAim] = useState("Freelance Jobs");
   const [skill, setSkill] = useState("ui ux design");
   const [isChooseAimDialogOpen, setIsChooseAimDialogOpen] = useState(false);
   const [isChooseSkillDialogOpen, setIsChooseSkillDialogOpen] = useState(false);
@@ -24,9 +20,9 @@ export const LandingPage = () => {
     skill: skill,
   };
   var nextDestRoute = "";
-  if (Aim == "Hackathons") nextDestRoute = "/hackathons";
-  if (Aim == "Freelance Jobs") nextDestRoute = "/jobs";
-  if (Aim == "Courses") nextDestRoute = "/courses";
+  if (Aim === "Hackathons") nextDestRoute = "/hackathons";
+  if (Aim === "Freelance Jobs") nextDestRoute = "/jobs";
+  if (Aim === "Courses") nextDestRoute = "/courses";
 
   return (
     <div className="landingpage">
@@ -142,9 +138,13 @@ export const LandingPage = () => {
           <div className="github-text">Github</div>
           <div className="blog-text">Blog</div>
           <div className="demo--text">Demo</div>
-          <div className="help-text">Help</div>
         </div>
-        <div className="get-started-button">
+        <div
+          className="get-started-button"
+          onClick={() => {
+            navigate("/jobs");
+          }}
+        >
           <div className="get-started--text">get started</div>
         </div>
       </div>

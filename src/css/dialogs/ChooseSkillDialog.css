@@ -5,14 +5,14 @@
 
 .chooseskilldialog {
   background: #181818;
-  border-radius: 20.51px;
+  border-radius: 4.792vw;
   padding: 20.51px 20.51px 20.51px 20.51px;
   display: flex;
   flex-direction: column;
   gap: 17.77px;
   align-items: center;
   justify-content: center;
-  width: 360.02px;
+  width: 90%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -25,7 +25,7 @@
   border-radius: 10.94px;
   border: solid #242424;
   border-width: 1.09px;
-  padding: 20px 40px 20px 40px;
+  padding: 2.16vh 9.346vw;
   display: flex;
   flex-direction: row;
   gap: 13.67px;
@@ -36,7 +36,7 @@
   position: relative;
   color: #898989;
   text-align: left;
-  font: 500 18px "Space Grotesk";
+  font: 500 4.206vw "Space Grotesk";
   position: relative;
 }
 
@@ -47,7 +47,7 @@
 .done-buttom {
   background: #703eff;
   border-radius: 11.02px;
-  padding: 13.23px 13.23px 13.23px 13.23px;
+  padding: 1.429vh 3.091vw;
   display: flex;
   flex-direction: row;
   gap: 7.35px;
@@ -62,6 +62,26 @@
 .done-buttom-text {
   color: #ffffff;
   text-align: left;
-  font: 500 14px "Space Grotesk";
+  font: 500 3.271vw "Space Grotesk";
   position: relative;
+}
+
+@media (min-width: 480px) {
+  .chooseskilldialog {
+    width: 360.02px;
+    border-radius: 20.51px;
+  }
+  .skill-name-input-container {
+    border-radius: 10.94px;
+    font: 500 18px "Space Grotesk";
+    padding: 20px 40px 20px 40px;
+  }
+
+  .done-buttom {
+    padding: 13.23px 13.23px 13.23px 13.23px;
+  }
+
+  .done-buttom-text {
+    font: 500 14px "Space Grotesk";
+  }
 }
