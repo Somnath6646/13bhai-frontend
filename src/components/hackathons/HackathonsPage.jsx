@@ -36,6 +36,10 @@ export const HackathonsPage = () => {
           setLoadingDialogOpen(false);
           setallHackathonList(data);
           console.log("RESPONSE", data);
+        })
+        .catch((err) => {
+          setLoadingDialogOpen(false);
+          alert(err.response.data.error);
         });
     }
     getData(data.skill);
